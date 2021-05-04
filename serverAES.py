@@ -37,8 +37,8 @@ outputMessage = tk.Label(master = outputFrame, text="")
 outputMessage.pack()
 
 port = portnum.get()
-counter = "SIXTEENCHARACTER"
-key = "SIXTEENCHARACTER"*2
+counter = b'SIXTEENCHARACTER'
+key = b'SIXTEENCHARACTERSIXTEENCHARACTER'
 local_ip = wlan_ip()
 
 def beginServer():
@@ -53,7 +53,7 @@ def beginServer():
                 data = conn.recv(1024)
                 if not data:
                     break
-                outputMessage["text"] += str(decryption(data))
+                outputMessage["text"] += "\n Received message: " + str(decryption(data))
 
 portSubmit = tk.Button(master = inputFrame, text = "Begin server", command = beginServer)
 
