@@ -3,8 +3,8 @@ import os
 import tkinter as tk
 import socket
 
-counter = "SIXTEENCHARACTER"
-key = "SIXTEENCHARACTER"*2
+counter = b'SIXTEENCHARACTER'
+key = b'SIXTEENCHARACTERSIXTEENCHARACTER'
 def encryption(ciphertext):
     encryptor = AES.new(key, AES.MODE_CTR, counter=lambda: counter)
     return encryptor.encrypt(ciphertext)
@@ -38,10 +38,11 @@ def beginClient():
     serverip = ipStore.get()
     port = portStore.get()
     message = encryption(messageStore.get())
-    outputMessage["text"] += "\n Listening for connections..."
+    outputMessage["text"] += "\n Waiting for server..."
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((serverip, port))
         s.sendall(message)
+        outputMessage["text"] += "Successfully sent the encrypted bytestream: " + str(message)
     
 
 totalSubmit = tk.Button(master = inputFrame, text = "Connect to server", command = beginClient)
